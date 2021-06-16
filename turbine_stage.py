@@ -164,7 +164,7 @@ df['Power'] = df[df['Q'] > 550]['Q'].apply(lambda x: tcalc(Qin=x)[1]['Power'])
 df.loc[df['Power'] < 1500, 'Power'] = None
 # df
 
-# fig, axes = plt.subplots(nrows=len(df['month'].unique()), ncols=1, figsize=(15, 120))
+# fig, axes = plt.subplots(nrows=len(df['month'].unique()), ncols=1, figsize=(15, 80))
 # i = 0
 # for month, data in df.groupby('month'):
 #     data = data.sort_values(by='date')
@@ -195,7 +195,7 @@ df['Power_nt'] = df[df['Q'] > 500]['Q'].apply(lambda x: tcalc(p0=7.55*10**5, T0=
 df.loc[df['Power_nt'] < 1000, 'Power_nt'] = None
 # df
 
-# fig, axes = plt.subplots(nrows=len(df['month'].unique()), ncols=1, figsize=(15, 120))
+# fig, axes = plt.subplots(nrows=len(df['month'].unique()), ncols=1, figsize=(15, 80))
 # i = 0
 # for month, data in df.groupby('month'):
 #     data = data.sort_values(by='date')
