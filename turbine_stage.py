@@ -145,7 +145,7 @@ def tcalc(p0=8.28 * 10 ** 5, pk=6 * 10 ** 5, T0=293, d=0.195, l=0.015, e=6 / 28,
 
     return flow, PwrOut
 
-df = pd.read_csv('mass_flow.csv', sep=';')
+df = pd.read_csv('massflow_data.csv', sep=';')
 df.columns = ['date', 't0', 'p0', 'tkp', 'pk', 'Q']
 df['date'] = df['date'].apply(lambda x: pd.to_datetime(x))
 df['month'] = df['date'].apply(lambda x: x.strftime('%Y-%m'))
@@ -157,65 +157,66 @@ df['p0'] = df['p0'].astype('float64')
 
 df['tkp'] = df['tkp'].apply(lambda x: x.replace(',', '.')).astype('float64')
 df['t0'] = df['t0'].astype('float64')
-df.head()
+# df.head()
 
 
 df['Power'] = df[df['Q'] > 550]['Q'].apply(lambda x: tcalc(Qin=x)[1]['Power'])
 df.loc[df['Power'] < 1500, 'Power'] = None
-df
+# df
 
-fig, axes = plt.subplots(nrows=len(df['month'].unique()), ncols=1, figsize=(15, 70))
-i = 0
-for month, data in df.groupby('month'):
-    data = data.sort_values(by='date')
-    k = 0
-
-    line1 = axes[i]
-    line1.plot(data['date'], data['Q'], alpha=0.5, label='Расход')
-
-    line2 = axes[i].twinx()
-    line2.plot(data['date'], data['Power'], color='g', linestyle='--', label='Мощность ТДУ')
-    axes[i].set_ylabel('Объёмный расход [м^3/ч]', fontsize=12)
-    axes[i].set_xlabel('Дата', fontsize=12)
-    axes[i].grid()
-    line2.axhline(5000, color='y', linestyle='--', label='Уровень мощности 5 кВт')
-    line2.set_ylabel('Мощность [Вт]', fontsize=12)
-    plt.legend()
-    line2.set_yticks(list(range(0, 7000, 1000)))
-
-    i += 1
-
-plt.savefig('Объёмный расход.jpg')
-plt.show()
+# fig, axes = plt.subplots(nrows=len(df['month'].unique()), ncols=1, figsize=(15, 120))
+# i = 0
+# for month, data in df.groupby('month'):
+#     data = data.sort_values(by='date')
+#     k = 0
+#
+#     line1 = axes[i]
+#     line1.plot(data['date'], data['Q'], alpha=0.5, label='Расход')
+#
+#     line2 = axes[i].twinx()
+#     line2.plot(data['date'], data['Power'], color='g', linestyle='--', label='Мощность ТДУ')
+#     axes[i].set_ylabel('Объёмный расход [м^3/ч]', fontsize=12)
+#     axes[i].set_xlabel('Дата', fontsize=12)
+#     axes[i].grid()
+#     line2.axhline(5000, color='y', linestyle='--', label='Уровень мощности 5 кВт')
+#     line2.set_ylabel('Мощность [Вт]', fontsize=12)
+#     plt.legend()
+#     line2.set_yticks(list(range(0, 7000, 1000)))
+#
+#     i += 1
+#
+# plt.tight_layout()
+# plt.savefig('Объёмный расход.jpg')
+# plt.show()
 
 
 df['Power_nt'] = df[df['Q'] > 500]['Q'].apply(lambda x: tcalc(p0=7.55*10**5, T0=293, d=0.118, l=0.012, e=6/28, \
                                                               n=50, use_xf=True, Qin=x, effgen=0.9)[1]['Power'])
 df.loc[df['Power_nt'] < 1000, 'Power_nt'] = None
-df
+# df
 
-fig, axes = plt.subplots(nrows=len(df['month'].unique()), ncols=1, figsize=(15, 70))
-i = 0
-for month, data in df.groupby('month'):
-    data = data.sort_values(by='date')
-    k = 0
-    line1 = axes[i]
-    line1.plot(data['date'], data['Q'], alpha=0.5, label='Расход')
-
-    line2 = axes[i].twinx()
-    line2.plot(data['date'], data['Power_nt'], color='g', linestyle='--', label='Мощность ТДУ')
-    axes[i].set_ylabel('Объёмный расход [м^3/ч]', fontsize=12)
-    axes[i].set_xlabel('Дата', fontsize=12)
-    axes[i].grid()
-    line2.axhline(5000, color='y', linestyle='--', label='Уровень мощности 5 кВт')
-    line2.set_ylabel('Мощность [Вт]', fontsize=12)
-    plt.legend()
-    line2.set_yticks(list(range(0, 7000, 1000)))
-
-    i += 1
-
-plt.savefig('Объёмный расход_2.jpg')
-plt.show()
+# fig, axes = plt.subplots(nrows=len(df['month'].unique()), ncols=1, figsize=(15, 120))
+# i = 0
+# for month, data in df.groupby('month'):
+#     data = data.sort_values(by='date')
+#     k = 0
+#     line1 = axes[i]
+#     line1.plot(data['date'], data['Q'], alpha=0.5, label='Расход')
+#
+#     line2 = axes[i].twinx()
+#     line2.plot(data['date'], data['Power_nt'], color='g', linestyle='--', label='Мощность ТДУ')
+#     axes[i].set_ylabel('Объёмный расход [м^3/ч]', fontsize=12)
+#     axes[i].set_xlabel('Дата', fontsize=12)
+#     axes[i].grid()
+#     line2.axhline(5000, color='y', linestyle='--', label='Уровень мощности 5 кВт')
+#     line2.set_ylabel('Мощность [Вт]', fontsize=12)
+#     plt.legend()
+#     line2.set_yticks(list(range(0, 7000, 1000)))
+#
+#     i += 1
+# plt.tight_layout()
+# plt.savefig('Объёмный расход_2.jpg')
+# plt.show()
 
 
 # Выработка кВт*ч
