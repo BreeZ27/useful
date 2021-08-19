@@ -4,6 +4,7 @@ import random as rnd
 
 
 # Вычисляет дисперсию вектор-столбца
+# Calc column dispersion
 def dispersion(x):
     z = len(x) - 1
     x = x - x.values.mean()
@@ -11,6 +12,7 @@ def dispersion(x):
 
 
 # Генератор паролей
+# Password generator
 def password_gen(lenth=16):
     key_list = '0123456789' + \
                'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -44,4 +46,12 @@ def password_gen(lenth=16):
             password += key_list[rnd.randint(0, len(key_list) - 1)]
     return password, print(password)
 
+
 password_gen()
+
+
+# Код для получения файла из Google Drive
+# Code to get file from Google Drive
+url = 'link from Google drive'
+url2 = 'https://drive.google.com/uc?id=' + url.split('/')[-2]
+df = pd.read_csv(url2)
