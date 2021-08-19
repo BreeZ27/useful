@@ -79,9 +79,11 @@ def grid_search(df=df[['x_train']], y=df.y_train, ex=3, df_need=False):
 
     if df_need == False:
         return 'The best approximation of the data by a polynomial of degree ' + \
-               str(models_df[models_df['r2_score'] == models_df.r2_score.max()].index[0][1:])
+               str(models_df[models_df['r2_score'] == models_df.r2_score.max()].index[0][1:]) + ', r2_score = ' + \
+               str(models_df.r2_score.max())
     else:
         return models_df, 'The best approximation of the data by a polynomial of degree ' + \
+               str(models_df[models_df['r2_score'] == models_df.r2_score.max()].index[0][1:]) + ', r2_score = ' + \
                str(models_df.r2_score.max())
 
 
