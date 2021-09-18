@@ -55,3 +55,17 @@ password_gen()
 url = 'link from Google drive'
 url2 = 'https://drive.google.com/uc?id=' + url.split('/')[-2]
 df = pd.read_csv(url2)
+
+
+# Разделить массива
+def parter(sec_part_val=0.2, data=x_zero):
+    merge = int(round(len(data) * sec_part_val, 0))
+
+    prt1 = data[0:len(data) - merge]
+    prt2 = data[-merge:]
+
+    return prt1, prt2
+
+
+x_st, x_ts = parter(sec_part_val=0.2, data=x_zero)
+y_st, y_ts = parter(sec_part_val=0.2, data=y_zero)
